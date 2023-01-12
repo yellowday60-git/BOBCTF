@@ -22,6 +22,8 @@ def post_ex(_url, _param):
 
 def auto_ex(_location, paylaod, serivce, _method):
     
+    if len(_location) == 0 :
+        return
     ## 여기에 각 서비스마다 ex 넣으면 됨!!
     if serivce == 0:
         return

@@ -18,6 +18,10 @@ flag = ""
 
 service_count = 6
 
+attack_url = ""
+payload = ""
+method = "GET"
+
 def init():
     fm.make_tempelet(ip_list)
 
@@ -58,6 +62,9 @@ def monitoring():
                 
                 # print(unauth)
                 
+                for ip in ip_list:
+                    auto_ex.auto_ex(attack_url, paylaod, serivce, method)
+                    
                 fs.shoot_all(service,unauth[service])
                 time.sleep(1)
         except KeyboardInterrupt:
