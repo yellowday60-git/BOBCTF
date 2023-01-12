@@ -20,7 +20,7 @@ def post_ex(_url, _param):
     response = requests.post(_url, cookies=cookies, headers=headers, data=_param , verify=False)
     return response
 
-def auto_ex(_location, paylaod, _method):
+def auto_ex(_location, paylaod, serivce, _method):
     
     if _method.upper() == "GET":
         for ip in monitor.ip_list:
@@ -32,7 +32,7 @@ def auto_ex(_location, paylaod, _method):
                 flag_pos = res.text.find(monitor.flag_format)
                 flag = res.text[flag_pos : flag_pos+monitor.flag_len]
                 print(f"{ip}'s flag is {flag}")
-                flag_manager.flag_manager(flag_manager.get_round(), ip, flag)
+                flag_manager.flag_manager(serivce, flag_manager.get_round(), ip, flag)
                 
     elif _method.upper() == "POST":
         for ip in ip_list:
@@ -44,11 +44,11 @@ def auto_ex(_location, paylaod, _method):
                 flag_pos = res.text.find(monitor.flag_format)
                 flag = res.text[flag_pos : flag_pos+monitor.flag_len]
                 print(f"{ip}'s flag is {flag}")
-                flag_manager.flag_manager(flag_manager.get_round(), ip, flag)
+                flag_manager.flag_manager(serivce, flag_manager.get_round(), ip, flag)
             
             
 def main():
-    auto_ex("https://webhacking.kr/rank.php", "", "POST")
+    auto_ex("https://webhacking.kr/rank.php", "", serivce, "POST")
 
 if __name__ == "__main__":
     main()
