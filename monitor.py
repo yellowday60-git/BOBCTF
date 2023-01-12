@@ -16,6 +16,8 @@ flag_format = "flag{"
 flag_len = 32
 flag = ""
 
+service_count = 6
+
 def init():
     fm.make_tempelet(ip_list)
 
@@ -23,34 +25,39 @@ def pop_unauth(list, ip):
     list.remove(ip)
 
 def monitoring():
+    global service_count
     unauth = []
-    unauth = ip_list
+    for i in range(service_count):
+        unauth.append(ip_list)
+    
     while(True):
         try:
-            round = fm.get_round()
-            os.system('clear')
-            print(f"\033[91mround : {round}".center(20))
-            
-            if fm.is_roundfile(round) == False:
-                fm.make_roundfile(round)
-                unauth = ip_list
+            for service in range(service_count):
+                round = fm.get_round()
+                os.system('clear')
+                print(f"\033[91mround : {round} \t service : {service}".center(30))
                 
-            for ip in ip_list:
-                flag = fm.get_flag(fm.get_round(), ip)
+                if fm.is_roundfile(service,round) == False:
+                    fm.make_roundfile(service, round)
+                    for i in range(service_count):
+                        unauth.append(ip_list)
+                    
+                for ip in ip_list:
+                    flag = fm.get_flag(service, round, ip)
+                    
+                    if fm.check_flag_vaild(flag):
+                        print(f"\033[94m{ip}:{flag}")
+                    else:
+                        print(f"\033[95m{ip}:NONE!!")
                 
-                if fm.check_flag_vaild(flag):
-                    print(f"\033[94m{ip}:{flag}")
-                else:
-                    print(f"\033[95m{ip}:NONE!!")
-            
-            # print(unauth)
-            
-            fs.shoot_all(unauth)
-            time.sleep(5)
+                # print(unauth)
+                
+                fs.shoot_all(unauth[service])
+                time.sleep(1)
         except KeyboardInterrupt:
             exit()
-        except:
-            continue
+        # except:
+        #     continue
 
 def main():
     init()

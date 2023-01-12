@@ -39,22 +39,30 @@ def make_tempelet(ips):
         f.write(f"{ip}:\n")
     f.close()
 
-def is_roundfile(round):
+def is_roundfile(service,round):
     cur_path = os.getcwd()
-    file_path = cur_path + "/flag_file/round" + str(round).rjust(3,"0") + ".txt"
+    file_path = cur_path + "/flag_file/service" + str(service) + "/round" + str(round).rjust(3,"0") + ".txt"
+    service_path = cur_path + "/flag_file/service" + str(service)
     if os.path.isdir(cur_path + "/flag_file") == False:
         os.mkdir(cur_path + "/flag_file")
+    
+    if os.path.isdir(service_path) == False:
+        os.mkdir(service_path)
     
     return os.path.isfile(file_path)
 
 
-def make_roundfile(round):
+def make_roundfile(service, round):
     cur_path = os.getcwd()
-    file_path = cur_path + "/flag_file/round" + str(round).rjust(3,"0") + ".txt"
+    file_path = cur_path + "/flag_file/service" + str(service) + "/round" + str(round).rjust(3,"0") + ".txt"
+    service_path = cur_path + "/flag_file/service" + str(service)
     tempelet_path = cur_path + "/flag_file/temp.txt"
     
     if os.path.isdir(cur_path + "/flag_file") == False:
         os.mkdir(cur_path + "/flag_file")
+    
+    if os.path.isdir(service_path) == False:
+        os.mkdir(service_path)
     
     if os.path.isfile(file_path) == False:
         f = open(file_path, "w")
@@ -68,8 +76,8 @@ def make_roundfile(round):
     f.close()
     
 
-def flag_manager(round, ip, flag):
-    make_roundfile(round)
+def flag_manager(service, round, ip, flag):
+    make_roundfile(service, round)
     
     f = open(tempelet_path, 'r')
     lines = f.readlines()
@@ -95,9 +103,9 @@ def flag_manager(round, ip, flag):
     f.writelines(msg)
     f.close()
 
-def get_flag(round, ip):
+def get_flag(service, round, ip):
     cur_path = os.getcwd()
-    file_path = cur_path + "/flag_file/round" + str(round).rjust(3,"0") + ".txt"
+    file_path = cur_path + "/flag_file/service" + str(service) + "/round" + str(round).rjust(3,"0") + ".txt"
     if os.path.isfile(file_path) == False:
         print("There's no file !!")
         return -1
@@ -115,9 +123,9 @@ def get_flag(round, ip):
     f.close()
     return -1
 
-def remove_flag(round, ip):
+def remove_flag(service, round, ip):
     cur_path = os.getcwd()
-    file_path = cur_path + "/flag_file/round" + str(round).rjust(3,"0") + ".txt"
+    file_path = cur_path + "/flag_file/service" + str(service) + "/round" + str(round).rjust(3,"0") + ".txt"
     if os.path.isfile(file_path) == False:
         print("There's no file !!")
         return -1
@@ -147,9 +155,9 @@ def remove_flag(round, ip):
     f.close()
     
 
-def get_target(round):
+def get_target(service, round):
     cur_path = os.getcwd()
-    file_path = cur_path + "/flag_file/round" + str(round).rjust(3,"0") + ".txt"
+    file_path = cur_path + "/flag_file/service" + str(service) + "/round" + str(round).rjust(3,"0") + ".txt"
     if os.path.isfile(file_path) == False:
         print("There's no file !!")
         return -1
@@ -178,7 +186,7 @@ def main():
     # flag_manager(12, "10.0.0.4", "flag")
     # print(get_flag(12, "10.0.0.5"))
     # print(get_target(12))
-    remove_flag(12, "10.10.1.6")
+    remove_flag(1, 12, "10.10.1.6")
 
 if __name__ == "__main__":
     main()
