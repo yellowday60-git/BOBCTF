@@ -31,6 +31,7 @@ def shoot_all(ip_list):
         round = flag_manager.get_round()
         for service in range(monitor.service_count):
             flag = flag_manager.get_flag(service, round, ip)
+            
             if flag_manager.check_flag_vaild(flag):
                 url = monitor.flag_url
                 if len(url) >= 1:

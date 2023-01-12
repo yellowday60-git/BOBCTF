@@ -24,6 +24,12 @@ def init():
 def pop_unauth(list, ip):
     list.remove(ip)
 
+def manual_set_flag(serivce, round, ip, flag):
+    if fm.is_roundfile(service,round) == False:
+        fm.make_roundfile(service, round)
+    
+    fm.flag_manager(service, round, ip, flag)
+
 def monitoring():
     global service_count
     unauth = []
@@ -38,8 +44,8 @@ def monitoring():
                 print(f"\033[91mround : {round} \t service : {service}".center(30))
                 
                 if fm.is_roundfile(service,round) == False:
-                    fm.make_roundfile(service, round)
                     for i in range(service_count):
+                        fm.make_roundfile(i, round)
                         unauth.append(ip_list)
                     
                 for ip in ip_list:

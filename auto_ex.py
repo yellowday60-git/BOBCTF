@@ -44,9 +44,8 @@ def auto_ex(_location, paylaod, serivce, _method):
                 flag_pos = res.text.find(monitor.flag_format)
                 flag = res.text[flag_pos : flag_pos+monitor.flag_len]
                 print(f"{ip}'s flag is {flag}")
-                flag_manager.flag_manager(serivce, flag_manager.get_round(), ip, flag)
-            
-            
+                flag_manager.flag_manager(serivce, flag_manager.get_round(), ip, flag)            
+
 def main():
     auto_ex("https://webhacking.kr/rank.php", "", serivce, "POST")
 

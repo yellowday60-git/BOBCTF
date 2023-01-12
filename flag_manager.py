@@ -107,7 +107,7 @@ def get_flag(service, round, ip):
     cur_path = os.getcwd()
     file_path = cur_path + "/flag_file/service" + str(service) + "/round" + str(round).rjust(3,"0") + ".txt"
     if os.path.isfile(file_path) == False:
-        print("There's no file !!")
+        print("There's no file !!!!")
         return -1
     
     f = open(file_path, "r")
@@ -127,7 +127,7 @@ def remove_flag(service, round, ip):
     cur_path = os.getcwd()
     file_path = cur_path + "/flag_file/service" + str(service) + "/round" + str(round).rjust(3,"0") + ".txt"
     if os.path.isfile(file_path) == False:
-        print("There's no file !!")
+        print("There's no file !")
         return -1
     
     f = open(file_path, 'r')
@@ -159,7 +159,7 @@ def get_target(service, round):
     cur_path = os.getcwd()
     file_path = cur_path + "/flag_file/service" + str(service) + "/round" + str(round).rjust(3,"0") + ".txt"
     if os.path.isfile(file_path) == False:
-        print("There's no file !!")
+        print("There's no file !!!")
         return -1
     target = []
     f = open(file_path, "r")
