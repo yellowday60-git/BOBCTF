@@ -1,9 +1,7 @@
 import requests
+import monitor
+import flag_manager
 
-ip_list = ["10.10.1.0"]
-
-flag_format = "java"
-flag_len = 32
 flag = ""
 # web hacking - get
 cookies = {
@@ -25,15 +23,16 @@ def post_ex(_url, _param):
 def auto_ex(_location, paylaod, _method):
     
     if _method.upper() == "GET":
-        for ip in ip_list:
+        for ip in monitor.ip_list:
             #url = "https://" + ip + _location
             url = _location
             res = get_ex(url, paylaod)
             # print(res.text)
-            if flag_format in res.text:
-                flag_pos = res.text.find(flag_format)
-                flag = res.text[flag_pos : flag_pos+flag_len]
+            if monitor.flag_format in res.text:
+                flag_pos = res.text.find(monitor.flag_format)
+                flag = res.text[flag_pos : flag_pos+monitor.flag_len]
                 print(f"{ip}'s flag is {flag}")
+                flag_manager.flag_manager(flag_manager.get_round(), ip, flag)
                 
     elif _method.upper() == "POST":
         for ip in ip_list:
@@ -41,10 +40,11 @@ def auto_ex(_location, paylaod, _method):
             url = _location
             res = post_ex(url, paylaod)
             #print(res.text)
-            if flag_format in res.text:
-                flag_pos = res.text.find(flag_format)
-                flag = res.text[flag_pos : flag_pos+flag_len]
+            if monitor.flag_format in res.text:
+                flag_pos = res.text.find(monitor.flag_format)
+                flag = res.text[flag_pos : flag_pos+monitor.flag_len]
                 print(f"{ip}'s flag is {flag}")
+                flag_manager.flag_manager(flag_manager.get_round(), ip, flag)
             
             
 def main():

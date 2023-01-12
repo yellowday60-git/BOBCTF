@@ -1,6 +1,7 @@
 import requests
 import os
 import flag_manager
+import monitor
 
 def auth(url, flag, session):
     cookies = {
@@ -19,14 +20,30 @@ def auth(url, flag, session):
         'X-Requested-With': 'XMLHttpRequest',
     }
 
-    data = 'flag='+flag.encode()
+    data = 'flag='+flag
 
     response = requests.post(url + '/api/auth', cookies=cookies, headers=headers, data=data, verify=False)
     
     return response
 
+def shoot_all(ip_list):
+    for ip in ip_list:
+        round = flag_manager.get_round()
+        flag = flag_manager.get_flag(round, ip)
+        if flag_manager.check_flag_vaild(flag):
+            url = monitor.flag_url
+            if len(url) >= 1:
+                res = auth(url, flag, monitor.flag_session)
+            
+                if ":(" in res:
+                    print(f"{ip}: incorrect!!!!")
+                    flag_manager.remove_flag(round, ip)
+                else:
+                    monitor.pop_unauth(ip_list, ip)
+
 def main():
-    print(flag_manager.get_flag(12, "10.0.0.4"))
+    #print(flag_manager.get_flag(12, "10.0.0.4"))
+    shoot_all(monitor.ip_list)
     
 if __name__ == "__main__":
     main()
