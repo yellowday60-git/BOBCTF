@@ -16,7 +16,7 @@ def get_sec():
 
 def get_round():
     start_time = 1673568000 # 2023-01-13-09:00:00
-    start_time = 1673542800 # 2023-01-13-02:00:00 for testing
+    # start_time = 1673542800 # 2023-01-13-02:00:00 for testing
     now_round =  math.floor((abs(start_time - now.time()) / 60 / 5)) + 1
     
     return now_round
