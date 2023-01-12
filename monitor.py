@@ -63,7 +63,7 @@ def monitoring():
                 # print(unauth)
                 
                 for ip in ip_list:
-                    auto_ex.auto_ex(attack_url, paylaod, serivce, method)
+                    auto_ex.auto_ex(attack_url, payload, serivce, method)
                     
                 fs.shoot_all(service,unauth[service])
                 time.sleep(1)

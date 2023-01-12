@@ -20,7 +20,7 @@ def post_ex(_url, _param):
     response = requests.post(_url, cookies=cookies, headers=headers, data=_param , verify=False)
     return response
 
-def auto_ex(_location, paylaod, serivce, _method):
+def auto_ex(_location, payload, serivce, _method):
     
     if len(_location) == 0 :
         return
@@ -46,7 +46,7 @@ def auto_ex(_location, paylaod, serivce, _method):
         for ip in monitor.ip_list:
             #url = "https://" + ip + _location
             url = _location
-            res = get_ex(url, paylaod)
+            res = get_ex(url, payload)
             # print(res.text)
             if monitor.flag_format in res.text:
                 flag_pos = res.text.find(monitor.flag_format)
@@ -58,7 +58,7 @@ def auto_ex(_location, paylaod, serivce, _method):
         for ip in ip_list:
             #url = "https://" + ip + _location
             url = _location
-            res = post_ex(url, paylaod)
+            res = post_ex(url, payload)
             #print(res.text)
             if monitor.flag_format in res.text:
                 flag_pos = res.text.find(monitor.flag_format)
