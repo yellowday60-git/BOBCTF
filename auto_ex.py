@@ -22,6 +22,24 @@ def post_ex(_url, _param):
 
 def auto_ex(_location, paylaod, serivce, _method):
     
+    ## 여기에 각 서비스마다 ex 넣으면 됨!!
+    if serivce == 0:
+        return
+    if serivce == 1:
+        return
+    if serivce == 2:
+        return
+    if serivce == 3:
+        return
+    if serivce == 4:
+        return
+    if serivce == 5:
+        return
+    if serivce == 6:
+        return
+    
+    
+    
     if _method.upper() == "GET":
         for ip in monitor.ip_list:
             #url = "https://" + ip + _location

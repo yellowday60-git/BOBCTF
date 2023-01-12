@@ -58,7 +58,7 @@ def monitoring():
                 
                 # print(unauth)
                 
-                fs.shoot_all(unauth[service])
+                fs.shoot_all(service,unauth[service])
                 time.sleep(1)
         except KeyboardInterrupt:
             exit()
