@@ -3,6 +3,8 @@ import monitor
 import flag_manager
 import prob1
 import prob2
+import prob4
+import prob6
 
 flag = ""
 # web hacking - get
@@ -38,10 +40,12 @@ def auto_ex(_location, payload, serivce, _method):
         
         return
     if serivce == 4:
+        prob4.attack()
         return
     if serivce == 5:
         return
     if serivce == 6:
+        prob6.attack()
         return
     
     if serivce == 7:

