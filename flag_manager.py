@@ -17,7 +17,7 @@ def get_sec():
 def get_round():
     start_time = 1673568000 # 2023-01-13-09:00:00
     # start_time = 1673542800 # 2023-01-13-02:00:00 for testing
-    now_round =  math.floor((abs(start_time - now.time()) / 60 / 5)) + 1
+    now_round =  math.floor((abs(start_time - now.time()) / 60 / 5)) 
     
     return now_round
 
@@ -77,6 +77,10 @@ def make_roundfile(service, round):
     
 
 def flag_manager(service, round, ip, flag):
+    # print("on")
+    cur_path = os.getcwd()
+    file_path = cur_path + "/flag_file/service" + str(service) + "/round" + str(round).rjust(3,"0") + ".txt"
+    tempelet_path = cur_path + "/flag_file/temp.txt"
     make_roundfile(service, round)
     
     f = open(tempelet_path, 'r')
@@ -106,6 +110,14 @@ def flag_manager(service, round, ip, flag):
 def get_flag(service, round, ip):
     cur_path = os.getcwd()
     file_path = cur_path + "/flag_file/service" + str(service) + "/round" + str(round).rjust(3,"0") + ".txt"
+    service_path = cur_path + "/flag_file/service" + str(service)
+    
+    if os.path.isdir(cur_path + "/flag_file") == False:
+        os.mkdir(cur_path + "/flag_file")
+    
+    if os.path.isdir(service_path) == False:
+        os.mkdir(service_path)
+    
     if os.path.isfile(file_path) == False:
         print("There's no file !!!!")
         return -1

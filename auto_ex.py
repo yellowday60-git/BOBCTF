@@ -1,11 +1,13 @@
 import requests
 import monitor
 import flag_manager
+import prob1
+import prob2
 
 flag = ""
 # web hacking - get
 cookies = {
-    'session': 'eyJ0ZWFtX2lkeCI6MX0.Y7_-KQ.-HgRrXK0SVI-UwIjSBWIi5yqPG8',
+    'session': 'eyJ1aWQiOiIwZjNjMWVjMy1iYjQyLTQ1MDgtODc3Zi04YWE2MjU4NzEzOGUiLCJ1c2VyIjoiYWRtaW4ifQ.Y8ConQ.pD2jmvZcy-GAyUBtAgNKVgfQf20',
 }
 
 headers = {
@@ -22,22 +24,27 @@ def post_ex(_url, _param):
 
 def auto_ex(_location, payload, serivce, _method):
     
-    if len(_location) == 0 :
-        return
-    ## 여기에 각 서비스마다 ex 넣으면 됨!!
+    
     if serivce == 0:
+        
         return
     if serivce == 1:
+        prob1.attack()
         return
     if serivce == 2:
+        prob2.attack()
         return
     if serivce == 3:
+        
         return
     if serivce == 4:
         return
     if serivce == 5:
         return
     if serivce == 6:
+        return
+    
+    if serivce == 7:
         return
     
     
@@ -67,7 +74,7 @@ def auto_ex(_location, payload, serivce, _method):
                 flag_manager.flag_manager(serivce, flag_manager.get_round(), ip, flag)            
 
 def main():
-    auto_ex("https://webhacking.kr/rank.php", "", serivce, "POST")
+    auto_ex("https://webhacking.kr/rank.php", "", 3, "POST")
 
 if __name__ == "__main__":
     main()

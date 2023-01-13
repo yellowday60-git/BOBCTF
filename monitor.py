@@ -6,7 +6,7 @@ import os
 
 ip_list = ["10.10.1.0","10.10.1.1","10.10.1.2","10.10.1.3","10.10.1.4","10.10.1.5",
            "10.10.1.6","10.10.1.7","10.10.1.8","10.10.1.9","10.10.1.10","10.10.1.11",
-           "10.10.1.12","10.10.1.13","10.10.1.14","10.10.1.15"]
+           "10.10.1.12","10.10.1.13","10.10.1.14","10.10.1.15","10.10.1.16"]
 
 # flag 인증 사이트
 flag_url = ""
@@ -16,7 +16,7 @@ flag_format = "flag{"
 flag_len = 32
 flag = ""
 
-service_count = 6
+service_count = 8
 
 attack_url = ""
 payload = ""
@@ -60,12 +60,11 @@ def monitoring():
                     else:
                         print(f"\033[95m{ip}:NONE!!")
                 
-                # print(unauth)
+                print("###")
                 
-                for ip in ip_list:
-                    auto_ex.auto_ex(attack_url, payload, service, method)
-                    
-                fs.shoot_all(service,unauth[service])
+                
+                auto_ex.auto_ex(attack_url, payload, service, method)    
+                #fs.shoot_all(service,unauth[service])
                 time.sleep(1)
         except KeyboardInterrupt:
             exit()
